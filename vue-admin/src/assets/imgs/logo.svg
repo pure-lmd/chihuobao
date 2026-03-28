@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 背景圆形 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35"/>
+      <stop offset="100%" style="stop-color:#f7931e"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f0f0f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主体 - 外卖盒 -->
+  <rect x="15" y="30" width="70" height="50" rx="8" ry="8" fill="url(#boxGrad)"/>
+
+  <!-- 盒子盖子线条 -->
+  <line x1="15" y1="45" x2="85" y2="45" stroke="#e0e0e0" stroke-width="2"/>
+
+  <!-- 盒子中间的凹槽 -->
+  <rect x="35" y="50" width="30" height="5" rx="2" fill="#ff6b35"/>
+
+  <!-- 蒸汽/热气效果 -->
+  <path d="M30 20 Q35 15, 35 22" stroke="#ff6b35" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M50 18 Q55 13, 55 20" stroke="#ff6b35" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M70 20 Q75 15, 75 22" stroke="#ff6b35" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- 闪电图标表示快速 -->
+  <polygon points="50,55 58,55 48,68 54,68 44,80 46,62 40,62" fill="#ff6b35"/>
+</svg>

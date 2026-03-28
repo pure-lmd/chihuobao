@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ShopMapper">
+
+    <select id="selectShopAll" resultType="com.example.entity.Shop">
+        select * from shop
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="address != null and address != ''">
+                and address like concat('%', #{address}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                and description like concat('%', #{description}, '%')
+            </if>
+            <if test="minPrice != null">
+                and min_price = #{minPrice}
+            </if>
+            <if test="deliveryFee != null">
+                and delivery_fee = #{deliveryFee}
+            </if>
+            <if test="rating != null">
+                and rating = #{rating}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="ownerId != null">
+                and owner_id = #{ownerId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insertShop" parameterType="com.example.entity.Shop" useGeneratedKeys="true">
+        insert into shop(name, address, phone, cover_url, description, min_price, delivery_fee, rating, status, category_id, owner_id, create_time, update_time)
+        values (#{name}, #{address}, #{phone}, #{coverUrl}, #{description}, #{minPrice}, #{deliveryFee}, #{rating}, #{status}, #{categoryId}, #{ownerId}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateShopById" parameterType="com.example.entity.Shop">
+        update shop
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="coverUrl != null and coverUrl != ''">
+                cover_url = #{coverUrl},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="minPrice != null">
+                min_price = #{minPrice},
+            </if>
+            <if test="deliveryFee != null">
+                delivery_fee = #{deliveryFee},
+            </if>
+            <if test="rating != null">
+                rating = #{rating},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

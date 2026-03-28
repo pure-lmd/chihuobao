@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ProductMapper">
+
+    <select id="selectProductAll" resultType="com.example.entity.dto.ProductDto">
+        select p.*, s.name as shopName, c.name as categoryName
+        from product p
+        left join shop s on p.shop_id = s.id
+        left join category c on p.category_id = c.id
+        <where>
+            <if test="shopId != null">
+                and p.shop_id = #{shopId}
+            </if>
+            <if test="categoryId != null">
+                and p.category_id = #{categoryId}
+            </if>
+            <if test="name != null and name != ''">
+                and p.name like concat('%', #{name}, '%')
+            </if>
+            <if test="price != null">
+                and p.price = #{price}
+            </if>
+            <if test="stock != null">
+                and p.stock = #{stock}
+            </if>
+            <if test="description != null and description != ''">
+                and p.description like concat('%', #{description}, '%')
+            </if>
+            <if test="sales != null">
+                and p.sales = #{sales}
+            </if>
+            <if test="status != null">
+                and p.status = #{status}
+            </if>
+            <if test="createTime != null">
+                and p.create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and p.update_time = #{updateTime}
+            </if>
+        </where>
+        order by p.id desc
+    </select>
+
+    <insert id="insertProduct" parameterType="com.example.entity.Product" useGeneratedKeys="true">
+        insert into product(shop_id, category_id, name, price, stock, description, image_url, sales, status, create_time, update_time)
+        values (#{shopId}, #{categoryId}, #{name}, #{price}, #{stock}, #{description}, #{imageUrl}, #{sales}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateProductById" parameterType="com.example.entity.Product">
+        update product
+        <set>
+            <if test="shopId != null">
+                shop_id = #{shopId},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="stock != null">
+                stock = #{stock},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
+            <if test="sales != null">
+                sales = #{sales},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

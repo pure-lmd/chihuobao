@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrdersMapper">
+
+    <select id="selectOrdersById" resultType="com.example.entity.Orders">
+        select o.*, s.name as shopName from orders o
+        left join shop s on o.shop_id = s.id
+        where o.id = #{id}
+    </select>
+
+    <select id="selectOrdersAll" resultType="com.example.entity.Orders">
+        select o.*, s.name as shopName from orders o
+        left join shop s on o.shop_id = s.id
+        <where>
+            <if test="orderNo != null and orderNo != ''">
+                and o.order_no like concat('%', #{orderNo}, '%')
+            </if>
+            <if test="userId != null">
+                and o.user_id = #{userId}
+            </if>
+            <if test="shopId != null">
+                and o.shop_id = #{shopId}
+            </if>
+            <if test="totalAmount != null">
+                and o.total_amount = #{totalAmount}
+            </if>
+            <if test="payAmount != null">
+                and o.pay_amount = #{payAmount}
+            </if>
+            <if test="deliveryFee != null">
+                and o.delivery_fee = #{deliveryFee}
+            </if>
+            <if test="remark != null and remark != ''">
+                and o.remark like concat('%', #{remark}, '%')
+            </if>
+            <if test="status != null">
+                and o.status = #{status}
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                and o.receiver_name like concat('%', #{receiverName}, '%')
+            </if>
+            <if test="receiverPhone != null and receiverPhone != ''">
+                and o.receiver_phone like concat('%', #{receiverPhone}, '%')
+            </if>
+            <if test="receiverAddress != null and receiverAddress != ''">
+                and o.receiver_address like concat('%', #{receiverAddress}, '%')
+            </if>
+            <if test="payTime != null">
+                and o.pay_time = #{payTime}
+            </if>
+            <if test="deliveryTime != null">
+                and o.delivery_time = #{deliveryTime}
+            </if>
+            <if test="finishTime != null">
+                and o.finish_time = #{finishTime}
+            </if>
+            <if test="createTime != null">
+                and o.create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and o.update_time = #{updateTime}
+            </if>
+        </where>
+        order by o.id desc
+    </select>
+
+    <insert id="insertOrders" parameterType="com.example.entity.Orders" useGeneratedKeys="true">
+        insert into orders(order_no, user_id, shop_id, total_amount, pay_amount, delivery_fee, remark, status, receiver_name, receiver_phone, receiver_address, pay_time, delivery_time, finish_time, create_time, update_time)
+        values (#{orderNo}, #{userId}, #{shopId}, #{totalAmount}, #{payAmount}, #{deliveryFee}, #{remark}, #{status}, #{receiverName}, #{receiverPhone}, #{receiverAddress}, #{payTime}, #{deliveryTime}, #{finishTime}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateOrdersById" parameterType="com.example.entity.Orders">
+        update orders
+        <set>
+            <if test="orderNo != null and orderNo != ''">
+                order_no = #{orderNo},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount},
+            </if>
+            <if test="payAmount != null">
+                pay_amount = #{payAmount},
+            </if>
+            <if test="deliveryFee != null">
+                delivery_fee = #{deliveryFee},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                receiver_name = #{receiverName},
+            </if>
+            <if test="receiverPhone != null and receiverPhone != ''">
+                receiver_phone = #{receiverPhone},
+            </if>
+            <if test="receiverAddress != null and receiverAddress != ''">
+                receiver_address = #{receiverAddress},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime},
+            </if>
+            <if test="finishTime != null">
+                finish_time = #{finishTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrderDetailMapper">
+
+    <select id="selectOrderDetailAll" resultType="com.example.entity.OrderDetail">
+        select * from order_detail
+        <where>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name like concat('%', #{productName}, '%')
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="quantity != null">
+                and quantity = #{quantity}
+            </if>
+            <if test="totalFee != null">
+                and total_fee = #{totalFee}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insertOrderDetail" parameterType="com.example.entity.OrderDetail" useGeneratedKeys="true">
+        insert into order_detail(order_id, product_id, product_name, product_image, price, quantity, total_fee, create_time, update_time)
+        values (#{orderId}, #{productId}, #{productName}, #{productImage}, #{price}, #{quantity}, #{totalFee}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateOrderDetailById" parameterType="com.example.entity.OrderDetail">
+        update order_detail
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productImage != null and productImage != ''">
+                product_image = #{productImage},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity},
+            </if>
+            <if test="totalFee != null">
+                total_fee = #{totalFee},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
