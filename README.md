@@ -108,6 +108,3 @@ npm run dev
 
 本项目由 Java全栈1 班第九组开发完成
 
-## 许可证
-
-MIT License
